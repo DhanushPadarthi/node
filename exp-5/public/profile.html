@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Profile</title></head>
+<body>
+  <h2>Welcome to CMRIT</h2>
+  <p id="profileInfo"></p>
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || !user.isLoggedIn) {
+      window.location.href = "/login";
+    } else {
+      document.getElementById("profileInfo").innerText = `Username: ${user.username}, Email: ${user.email}`;
+    }
+
+    function logout() {
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    }
+  </script>
+</body>
+</html>

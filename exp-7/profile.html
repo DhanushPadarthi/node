@@ -1,0 +1,17 @@
+<h2 id="welcome"></h2>
+<p id="info"></p>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get('token');
+
+  fetch(`/profile-data?token=${token}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("welcome").innerText = data.message;
+      document.getElementById("info").innerText = `Username: ${data.username}, Profession: ${data.profession}`;
+    })
+    .catch(err => {
+      document.body.innerHTML = '<h2>Access Denied</h2>';
+    });
+</script>

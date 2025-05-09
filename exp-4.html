@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Slider with Alt</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    #slider-container {
+      width: 400px;
+      height: 260px;
+      margin: auto;
+      text-align: center;
+      border: 2px solid #ccc;
+      padding: 10px;
+    }
+    #slider-container img {
+      width: 100%;
+      height: 200px;
+    }
+    button {
+      margin: 5px;
+      padding: 8px 16px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="slider-container">
+  <img id="slider-image" src="img1.jpg" alt="Image 1">
+  <br>
+  <button id="prev">Previous</button>
+  <button id="toggle">Slideshow On</button>
+  <button id="next">Next</button>
+</div>
+
+<script>
+  const images = [
+    { src: "img1.jpg", alt: "Image 1" },
+    { src: "img2.jpg", alt: "Image 2" },
+    { src: "img3.jpg", alt: "Image 3" }
+  ];
+
+  let index = 0;
+  let slideshow = false;
+  let interval;
+
+  function showImage() {
+    $("#slider-image").attr("src", images[index].src);
+    $("#slider-image").attr("alt", images[index].alt);
+  }
+
+  $("#prev").click(function () {
+    index = (index - 1 + images.length) % images.length;
+    showImage();
+  });
+
+  $("#next").click(function () {
+    index = (index + 1) % images.length;
+    showImage();
+  });
+
+  $("#toggle").click(function () {
+    if (slideshow) {
+      clearInterval(interval);
+      $(this).text("Slideshow On");
+    } else {
+      interval = setInterval(function () {
+        index = (index + 1) % images.length;
+        showImage();
+      }, 2000);
+      $(this).text("Slideshow Stop");
+    }
+    slideshow = !slideshow;
+  });
+</script>
+
+</body>
+</html>
