@@ -1,0 +1,37 @@
+Program 14 record steps:
+-------------------------
+1) py -m venv venv
+
+2) .\venv\scripts\activate
+
+3) pip install Django djangorestframework
+
+4) django-admin startproject restapi
+
+5) pip freeze > requirements.txt
+
+6) cd restapi
+
+7) django-admin startapp api
+
+8) django-admin startapp base
+
+===================================
+api-views.py, urls.py, serializers.py
+restapi-urls.py
+settings.py
+1) import os
+2) installed apps=> 'rest_framework','base'
+3) templates => DIRS=> os.path.join(BASE_DIR,'templates')
+
+base- models.py
+Templates=> home.html, register.html, profile.html
+
+============================================
+9) py manage.py makemigrations
+
+10) py manage.py migrate
+
+11) py manage.py runserver
+ 
+ 
