@@ -1,17 +1,10 @@
-<h2 id="welcome"></h2>
-<p id="info"></p>
-
+<h2 id="msg"></h2>
 <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const token = urlParams.get('token');
-
+  const token = new URLSearchParams(location.search).get('token');
   fetch(`/profile-data?token=${token}`)
     .then(res => res.json())
-    .then(data => {
-      document.getElementById("welcome").innerText = data.message;
-      document.getElementById("info").innerText = `Username: ${data.username}, Profession: ${data.profession}`;
+    .then(d => {
+      msg.innerText = `👋 Hello ${d.username} (${d.profession}) - Welcome to CMRIT`;
     })
-    .catch(err => {
-      document.body.innerHTML = '<h2>Access Denied</h2>';
-    });
+    .catch(() => document.body.innerHTML = '<h2>Access Denied</h2>');
 </script>
