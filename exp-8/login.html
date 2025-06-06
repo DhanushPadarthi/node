@@ -1,26 +1,7 @@
 <h2>Login</h2>
-<form id="loginForm">
+<form action="/api/login" method="POST">
   <input name="username" placeholder="Username" required><br><br>
   <input name="password" type="password" placeholder="Password" required><br><br>
   <button>Login</button>
 </form>
 <a href="/">Home</a>
-
-<script>
-  document.getElementById('loginForm').onsubmit = async e => {
-    e.preventDefault();
-    const f = new FormData(e.target);
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: f.get('username'), password: f.get('password') })
-    });
-    const d = await res.json();
-    if (d.token) {
-      localStorage.setItem('token', d.token);
-      location.href = '/profile';
-    } else {
-      alert("Login failed");
-    }
-  };
-</script>

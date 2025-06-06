@@ -2,19 +2,15 @@
 <p id="info"></p>
 
 <script>
-  const token = localStorage.getItem("token");
-  if (!token) {
-    document.getElementById("msg").innerText = "Login required.";
-    setTimeout(() => location.href = "/login", 1500);
-  } else {
-    fetch("/api/profile", { headers: { Authorization: token } })
-      .then(res => res.json())
-      .then(d => {
-        document.getElementById("msg").innerText = d.message;
-        document.getElementById("info").innerText = `Username: ${d.username}\nProfession: ${d.profession}`;
-      }).catch(() => {
-        document.getElementById("msg").innerText = "Invalid token";
-        setTimeout(() => location.href = "/login", 1500);
-      });
-  }
+  const token = new URLSearchParams(location.search).get('token');
+  fetch("/api/profile", { headers: { Authorization: token } })
+    .then(res => res.json())
+    .then(d => {
+      document.getElementById("msg").innerText = d.message;
+      document.getElementById("info").innerText = `Username: ${d.username}\nProfession: ${d.profession}`;
+    })
+    .catch(() => {
+      document.getElementById("msg").innerText = "Invalid token";
+      setTimeout(() => location.href = "/login", 1500);
+    });
 </script>
